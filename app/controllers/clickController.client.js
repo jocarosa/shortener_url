@@ -14,6 +14,9 @@
 
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, updateClickCount));
 
+
+
+
    addButton.addEventListener('click', function () {
 
       ajaxFunctions.ajaxRequest('POST', apiUrl, function () {
