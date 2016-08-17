@@ -3,10 +3,8 @@ var app         = express();
 var mongoose    = require('mongoose');
 var Url         = require('./public/models/urls.js'); //inside node_modules folder
 
-
     app.use(express.static('public'));
     mongoose.connect(process.env.MONGO_URI);
-
 
     app.get('/new/:query//:http', function (req, res) {
 
@@ -35,9 +33,6 @@ var Url         = require('./public/models/urls.js'); //inside node_modules fold
         res.send({ original_url: url , short_url: hostname + ramdom});//sending json format with the urls
   
     });//end app get
-
-
-
 
 
 
