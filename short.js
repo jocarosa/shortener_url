@@ -5,7 +5,7 @@ var Url         = require('./public/models/urls.js'); //inside node_modules fold
 
     app.use(express.static('public'));
     require('dotenv').load(); //loading .env file
-    mongoose.connect(process.env.MONGO_URI);
+    mongoose.connect("mongodb://jocarosa:jocarosa19@ds161245.mlab.com:61245/shorturldb");
 
     app.get('/new/:query//:http', function (req, res) {
 
