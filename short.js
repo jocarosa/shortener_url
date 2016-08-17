@@ -4,6 +4,7 @@ var mongoose    = require('mongoose');
 var Url         = require('./public/models/urls.js'); //inside node_modules folder
 
     app.use(express.static('public'));
+    require('dotenv').load(); //loading .env file
     mongoose.connect(process.env.MONGO_URI);
 
     app.get('/new/:query//:http', function (req, res) {
