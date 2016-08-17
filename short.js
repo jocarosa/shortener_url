@@ -1,4 +1,3 @@
-
 var express     = require('express');
 var app         = express();
 var mongoose    = require('mongoose');
@@ -6,7 +5,7 @@ var Url         = require('./public/models/urls.js'); //inside node_modules fold
 
 
     app.use(express.static('public'));
-    mongoose.connect('mongodb://localhost:27017/');
+    mongoose.connect(process.env.MONGO_URI);
 
 
     app.get('/new/:query//:http', function (req, res) {
@@ -18,9 +17,6 @@ var Url         = require('./public/models/urls.js'); //inside node_modules fold
         var min         = 0;
         var ramdom      = '';
     
-
-
-
         //5 number ramdom for making an id
         for(var i = 1;i < 6; i++){
     
@@ -28,16 +24,12 @@ var Url         = require('./public/models/urls.js'); //inside node_modules fold
     
         }
 
-
-
         var m1 = new Url({id: ramdom, url: url});
 
         m1.save(function (err) {
             if (err) {console.log(err.stack);}    
             console.log('saving done...');
         });
-
-
 
 
         res.send({ original_url: url , short_url: hostname + ramdom});//sending json format with the urls
@@ -52,30 +44,23 @@ var Url         = require('./public/models/urls.js'); //inside node_modules fold
     app.get('/:id',function(req, res){
    
   
-   var id           = req.url.replace('/','');
-   var redirectTo   ='/';
-       /* Url.find({},function(err,allurl){
-            console.log('allurl '+allurl)
-        })*/
+        var id           = req.url.replace('/','');
+        var redirectTo   ='/';
+      
         Url.findOne({id:id},function(err,data){
             
             if(data!=null){
                 redirectTo = data.url;
             }
             res.redirect(301, redirectTo);
-           //res.redirect(301, data.url);
-            // console.log(data.url);
+          
     
         });
 
     });
 
 
-
-
-
-
     var port = process.env.PORT || 8080;
-app.listen(port,  function () {
-	console.log('Node.js listening on port ' + port + '...');
-});
+    app.listen(port,  function () {
+	    console.log('Node.js listening on port ' + port + '...');
+    });
